@@ -4,7 +4,8 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>NerdTech</title>
-  <meta name="description" content="Homepage of NerdTech. Here you can learn more about me, my projects and my academic path.">
+  <meta name="description" content="Homepage of NerdTech. Here you can learn more about me, my projects and my academic path."/>
+  <meta name="theme-color" content="#E6E6E6"/>
   <link rel="icon" type="image/x-icon" href="./assets/resources/circle-nodes-solid-full.svg"/>
   <link rel="preload" as="image" href="./assets/resources/optical-fiber-7204074.webp" fetchpriority="high">
 
@@ -770,8 +771,9 @@
   <script>
     const cardContainer = document.getElementById("card-container"); //get the card container
     const cards = Array.from(cardContainer.querySelectorAll('section')); //get all cards in the card container
+    const navbarToggler = document.querySelector('.navbar-toggler'); //get the navbar toggler button for mobile view
     const navLinks = document.querySelectorAll('.navigation-link'); //get all navbar navigation buttons by class
-    const navBarLinks = document.querySelectorAll('.nav-link'); //get all navbar navigation buttons by class
+    const navbarLinks = document.querySelectorAll('.nav-link'); //get all navbar navigation buttons by class
     const navbarCollapsable = document.getElementById('navbarNav'); //get the collapsable section of the nav bar which contains the navbar navigation buttons
     const bootstrapNavbarCollapse = new bootstrap.Collapse(navbarCollapsable, { toggle: false }); //create a new bootstrap collapse element with the collapsable part of the navbar and set it to collapsed by default - collapsing is small screen only 
     let activeIndex = 0; //card index set by default to 0
@@ -819,7 +821,7 @@
         }
       });
 
-      navBarLinks.forEach(link => { //go over all the navigation bar links
+      navbarLinks.forEach(link => { //go over all the navigation bar links
         link.classList.remove('active'); //set each navigation bar link to inactive
         if(link.getAttribute('href') === cards[activeIndex].id) {
           link.classList.add('active'); //set the navigation bar link active when the href attribute value matches the active card index ID
@@ -835,6 +837,23 @@
     });
 
     cardContainer.addEventListener('scroll', updateActiveState);
+
+    navbarToggler.addEventListener('mouseover', () => {
+      navbarToggler.focus();
+    });
+
+    navbarToggler.addEventListener('mouseout', () => {
+      navbarToggler.blur();
+    });
+
+    navbarToggler.addEventListener('touchstart', (e) => {
+      e.preventDefault();
+      navbarToggler.focus();
+      navbarToggler.click();
+      setTimeout(() => {
+        navbarToggler.blur();
+      }, 150);
+    });
 
     window.addEventListener('resize', () => {
       if (!isResizing) {
